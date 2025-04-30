@@ -1,3 +1,7 @@
+body {
+  background-color: #fffaed;
+}
+
 a:link, a:visited {
   background-color: green;
   color: white;
