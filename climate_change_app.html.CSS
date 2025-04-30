@@ -10,3 +10,7 @@ a:link, a:visited {
 a:hover, a:active {
   background-color: blue;
 }
+
+h2, p {
+  color:#5bed1c ;
+}
