@@ -2,6 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <title>Open Matrix Rain</title>
+</head>
+<body style="font-family: sans-serif; text-align: center; padding-top: 50px;">
+  <h1>Launch Matrix Rain in about:blank</h1>
+  <button onclick="openMatrix()">Open</button>
+
+  <script>
+    function openMatrix() {
+      const win = window.open("about:blank", "_blank");
+
+      win.document.write(`<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
   <title>Matrix Rain</title>
   <style>
     html, body {
@@ -11,19 +25,13 @@
       overflow: hidden;
       font-family: monospace;
     }
-
     canvas {
       display: block;
     }
   </style>
-  <script>
-    // Change the URL to 'about:blank' without navigating to it
-    history.pushState(null, null, 'about:blank');
-  </script>
 </head>
 <body>
   <canvas id="matrix"></canvas>
-
   <script>
     const canvas = document.getElementById("matrix");
     const ctx = canvas.getContext("2d");
@@ -71,7 +79,12 @@
       }
     }
 
-    setInterval(draw, 50); // Start the animation immediately
+    setInterval(draw, 50);
+  </script>
+</body>
+</html>`);
+      win.document.close();
+    }
   </script>
 </body>
 </html>
