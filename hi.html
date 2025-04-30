@@ -15,30 +15,14 @@
     canvas {
       display: block;
     }
-
-    #startBtn {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #0f0;
-      color: black;
-      padding: 20px 40px;
-      font-size: 1.5rem;
-      border: none;
-      cursor: pointer;
-      z-index: 10;
-    }
   </style>
 </head>
 <body>
-  <button id="startBtn">Enter the Matrix</button>
   <canvas id="matrix"></canvas>
 
   <script>
     const canvas = document.getElementById("matrix");
     const ctx = canvas.getContext("2d");
-    const startBtn = document.getElementById("startBtn");
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
@@ -83,10 +67,7 @@
       }
     }
 
-    startBtn.onclick = () => {
-      startBtn.style.display = "none";
-      setInterval(draw, 50);
-    };
+    setInterval(draw, 50); // Start the animation immediately
   </script>
 </body>
 </html>
