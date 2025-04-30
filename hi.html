@@ -2,22 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Launch Matrix Rain</title>
-</head>
-<body style="font-family: sans-serif; text-align: center; padding-top: 50px;">
-  <h1>Launch Matrix Rain in about:blank</h1>
-  <button id="openBtn">Open</button>
-
-  <script>
-    document.getElementById("openBtn").addEventListener("click", () => {
-      // Open a new blank tab first (user-triggered event!)
-      const win = window.open('', '_blank');
-
-      // Now inject content (allowed because it's immediately after a click)
-      win.document.write(`<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8" />
   <title>Matrix Rain</title>
   <style>
     html, body {
@@ -27,6 +11,7 @@
       overflow: hidden;
       font-family: monospace;
     }
+
     canvas {
       display: block;
     }
@@ -34,58 +19,57 @@
 </head>
 <body>
   <canvas id="matrix"></canvas>
+
   <script>
-    const canvas = document.getElementById("matrix");
-    const ctx = canvas.getContext("2d");
+    window.onload = function () {
+      const canvas = document.getElementById("matrix");
+      const ctx = canvas.getContext("2d");
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
 
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
+      resizeCanvas();
+      window.addEventListener("resize", resizeCanvas);
 
-    const characters = "アァイゥエオカキクケコABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$%#*";
-    const messages = ["NEO", "WAKE UP", "GLITCH", "REALITY IS BROKEN", "THE MATRIX"];
-    const letters = (characters + messages.join("")).split("");
+      const characters = "アァイゥエオカキクケコABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$%#*";
+      const messages = ["NEO", "WAKE UP", "GLITCH", "REALITY IS BROKEN", "THE MATRIX"];
+      const letters = (characters + messages.join("")).split("");
 
-    const fontSize = 16;
-    const columns = Math.floor(window.innerWidth / fontSize);
-    const drops = Array(columns).fill(1);
+      const fontSize = 16;
+      const columns = Math.floor(window.innerWidth / fontSize);
+      const drops = Array(columns).fill(1);
 
-    function draw() {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "#0f0";
-      ctx.font = fontSize + "px monospace";
+      function draw() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      for (let i = 0; i < drops.length; i++) {
-        const char = letters[Math.floor(Math.random() * letters.length)];
-        ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+        ctx.fillStyle = "#0f0";
+        ctx.font = fontSize + "px monospace";
 
-        if (Math.random() < 0.002) {
-          const msg = messages[Math.floor(Math.random() * messages.length)];
-          for (let j = 0; j < msg.length; j++) {
-            ctx.fillText(msg[j], i * fontSize, (drops[i] + j) * fontSize);
+        for (let i = 0; i < drops.length; i++) {
+          const char = letters[Math.floor(Math.random() * letters.length)];
+          ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+
+          if (Math.random() < 0.002) {
+            const msg = messages[Math.floor(Math.random() * messages.length)];
+            for (let j = 0; j < msg.length; j++) {
+              ctx.fillText(msg[j], i * fontSize, (drops[i] + j) * fontSize);
+            }
+            drops[i] += msg.length;
+          } else {
+            drops[i]++;
           }
-          drops[i] += msg.length;
-        } else {
-          drops[i]++;
-        }
 
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0;
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
         }
       }
-    }
 
-    setInterval(draw, 50);
-  <\/script>
-</body>
-</html>`);
-      win.document.close();
-    });
+      setInterval(draw, 50); // Start animation after canvas is ready
+    };
   </script>
 </body>
 </html>
